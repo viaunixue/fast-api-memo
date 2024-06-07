@@ -1,9 +1,7 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
-from pydantic import BaseModel
-
-Base = declarative_base()
+from app.core.db import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -12,14 +10,4 @@ class User(Base):
     email = Column(String(200))
     hashed_password = Column(String(512))
 
-# 회원 가입 시 데이터 검증
-class UserCreate(BaseModel):
-    username: str
-    email: str
-    password: str   # unhashed password  
-
-# 회원 로그인 시 데이터 검증
-class UserLogin(BaseModel):
-    username: str
-    password: str   # unhashed password
-
+    memos = relationship("Memo", back_populates="user")

@@ -1,11 +1,29 @@
+from typing import Annotated, Any, Literal
+from dotenv import load_dotenv
+
+# load .env file
+load_dotenv()
+
 from pydantic import (
-    BaseSettings, 
-    SettingsConfigDict,
     MySQLDsn,
-    computed_field
+    computed_field,
+    AnyUrl,
+    BeforeValidator
+)
+
+from pydantic_settings import (
+    BaseSettings,
+    SettingsConfigDict
 )
 
 from pydantic_core import MultiHostUrl
+
+def parse_cors(v: Any) -> list[str] | str:
+    if isinstance(v, str) and not v.startswith("["):
+        return [i.strip() for i in v.split(",")]
+    elif isinstance(v, list | str):
+        return v
+    raise ValueError(v)
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -13,6 +31,11 @@ class Settings(BaseSettings):
     )
 
     API_V1_STR: str
+
+    BACKEND_CORS_ORIGINS: Annotated[
+        list[AnyUrl] | str, BeforeValidator(parse_cors)
+    ]
+    BACKEND_SESSION_SECRET_KEY : str
 
     PROJECT_NAME : str
 
