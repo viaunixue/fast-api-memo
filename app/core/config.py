@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> MySQLDsn:
         return MultiHostUrl.build(
-            scheme="mysql+pymysql",
+            scheme="mysql+aiomysql",
             username=self.MYSQL_USER,
             password=self.MYSQL_PASSWORD,
             host=self.MYSQL_SERVER,

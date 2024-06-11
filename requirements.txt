@@ -6,3 +6,5 @@ pymysql==1.1.0
 pydantic
 passlib
 bcrypt
+aiomysql
+greenlet
