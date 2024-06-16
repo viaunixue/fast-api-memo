@@ -27,8 +27,8 @@ async def app_lifespan(app: FastAPI):
 app = FastAPI(
     lifespan = app_lifespan,
     # swagger UI, Rdeoc 비활성화
-    docs_url = None,
-    redoc_url = None, 
+    # docs_url = None,
+    # redoc_url = None, 
     title = settings.PROJECT_NAME,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     generate_unique_id_function=custom_generate_unique_id
