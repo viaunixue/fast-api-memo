@@ -125,3 +125,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Alembic migration versions
+alembic/versions/*.pyc
+alembic/versions/__pycache__/
+
+# Python bytecode
+*.pyc
+__pycache__/
+
+# Alembic log files
+alembic.log
+
